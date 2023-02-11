@@ -5,6 +5,7 @@ import {
   createAuthUser,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils'
+import Button from '../button/button.component'
 
 const signUpFormFields = {
   displayName: '',
@@ -54,8 +55,8 @@ const SignUpForm = () => {
   }
 
   return (
-    <div>
-      <h1>Sign up with your email and password</h1>
+    <div className='sign-up-component'>
+      <h2>Sign up with your email and password</h2>
       <form className='email-password-form' onSubmit={(e) => handleSubmit(e)}>
         <FormInput
           label='Display Name'
@@ -93,7 +94,7 @@ const SignUpForm = () => {
           required
         />
 
-        <button type='submit'>Sign Up</button>
+        <Button content={'Sign Up'} />
       </form>
     </div>
   )
