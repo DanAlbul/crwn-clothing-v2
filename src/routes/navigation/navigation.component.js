@@ -17,7 +17,7 @@ const Navbar = () => {
     {
       id: 'nav3',
       title: 'Sign In',
-      path: '/sign-in',
+      path: '/auth',
     },
   ]
 
