@@ -1,6 +1,7 @@
 .sign-up-component {
   display: flex;
-  width: 380px;
+  max-width: 380px;
+  width: 100%;
   flex-direction: column;
 
   h2 {

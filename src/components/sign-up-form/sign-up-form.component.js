@@ -42,11 +42,9 @@ const SignUpForm = () => {
     }
     try {
       const userObj = await createAuthUser(email, password)
-      console.log(userObj)
       await createUserDocumentFromAuth(userObj.user, { displayName })
       resetFormFields()
     } catch (e) {
-      console.log(e.message)
       if (e.message.includes('auth/email-already-in-use')) {
         alert('User with the same email is already registered.')
       }
@@ -56,7 +54,8 @@ const SignUpForm = () => {
 
   return (
     <div className='sign-up-component'>
-      <h2>Sign up with your email and password</h2>
+      <h2>I do not have an account</h2>
+      <span>Sign up with your email and password</span>
       <form className='email-password-form' onSubmit={(e) => handleSubmit(e)}>
         <FormInput
           label='Display Name'
@@ -68,7 +67,7 @@ const SignUpForm = () => {
         />
 
         <FormInput
-          label='Email Address'
+          label='Email'
           type='email'
           name='email'
           onChange={handleChange}
