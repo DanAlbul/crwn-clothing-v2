@@ -1,17 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+
 import Button from '../button/button.component.js'
 import FormInput from '../form-input/form-input.component.js'
 
 import './sign-in-form.styles.scss'
 
 import {
-  auth,
   signInWithGooglePopup,
   signInUserWithEmailAndPassword,
-  signInWithGoogleRedirect,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils.js'
 import { getRedirectResult } from 'firebase/auth'
+import { UserContext } from '../../contexts/user.context.js'
 
 const signInFormFields = {
   email: '',
@@ -20,6 +20,7 @@ const signInFormFields = {
 
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(signInFormFields)
+  const { currentUser, setCurrentUser } = useContext(UserContext)
 
   const { email, password } = formFields
 
@@ -41,11 +42,9 @@ const SignInForm = () => {
     console.log(email, password)
 
     try {
-      const UserCredential = await signInUserWithEmailAndPassword(
-        email,
-        password
-      )
-      console.log(UserCredential)
+      const userAuth = await signInUserWithEmailAndPassword(email, password)
+      setCurrentUser(userAuth.user)
+
       resetFormFields()
     } catch (e) {
       if (
@@ -73,6 +72,7 @@ const SignInForm = () => {
   const signInWithGoogleUser = async () => {
     const authResult = await signInWithGooglePopup()
     createUserDocumentFromAuth(authResult.user)
+    setCurrentUser(authResult.user)
   }
 
   return (
