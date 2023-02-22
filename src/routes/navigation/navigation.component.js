@@ -6,34 +6,7 @@ import { ReactComponent as Logo } from '../../assets/crown.svg'
 import { signOutUser } from '../../utils/firebase/firebase.utils'
 
 const Navbar = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext)
-
-  const signOutHandler = async () => {
-    await signOutUser()
-    console.log(currentUser)
-    // setCurrentUser(null)
-  }
-
-  const navElements = [
-    {
-      id: 'nav1',
-      title: 'Shop',
-      path: '/shop',
-      ///event: null,
-    },
-    {
-      id: 'nav2',
-      title: 'Contact',
-      path: '/contact',
-      //event: null,
-    },
-    {
-      id: 'nav3',
-      title: currentUser ? 'Sign Out' : 'Sign In',
-      path: '/auth',
-      event: currentUser ? signOutHandler : null,
-    },
-  ]
+  const { currentUser } = useContext(UserContext)
 
   return (
     <>
@@ -42,17 +15,15 @@ const Navbar = () => {
           <Logo className='logo' />
         </Link>
         <div className='nav-links-container'>
-          {navElements.map((navEl) => {
-            return (
-              <Link
-                onClick={[navEl?.event]}
-                key={navEl.id}
-                to={navEl.path}
-                className='nav-link'>
-                {navEl.title.toUpperCase()}
-              </Link>
-            )
-          })}
+          <Link to='/shop' className='nav-link'>
+            {'SHOP'}
+          </Link>
+          <Link to='/contact' className='nav-link'>
+            {'CONTACT'}
+          </Link>
+          <Link onClick={signOutUser} to='/auth' className='nav-link'>
+            {currentUser ? 'SIGN OUT' : 'SIGN IN'}
+          </Link>
         </div>
       </div>
       <Outlet />
